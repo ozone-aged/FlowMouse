@@ -382,7 +382,7 @@ class PopupPage extends LitElement {
 				${canToggleBlacklist
 					? html`
 						<label class="toggle" title="${isBlacklisted ? i18n.getMessage('popupRemoveBlacklist') : i18n.getMessage('popupAddBlacklist')}">
-							<input type="checkbox" .checked=${!isBlacklisted} @change=${this.#toggleBlacklist}>
+							<input type="checkbox" aria-label=${isBlacklisted ? i18n.getMessage('popupRemoveBlacklist') : i18n.getMessage('popupAddBlacklist')} .checked=${!isBlacklisted} @change=${this.#toggleBlacklist}>
 							<span class="slider"></span>
 						</label>
 					`
@@ -393,7 +393,7 @@ class PopupPage extends LitElement {
 			<div class="status-row">
 				<span class="status-label">${i18n.getMessage('popupTrail')}</span>
 				<label class="toggle">
-					<input type="checkbox" .checked=${this._enableTrail} @change=${this.#onTrailChange}>
+					<input type="checkbox" aria-label=${i18n.getMessage('popupTrail')} .checked=${this._enableTrail} @change=${this.#onTrailChange}>
 					<span class="slider"></span>
 				</label>
 			</div>
@@ -401,7 +401,7 @@ class PopupPage extends LitElement {
 			<div class="status-row">
 				<span class="status-label">${i18n.getMessage('popupHint')}</span>
 				<label class="toggle">
-					<input type="checkbox" .checked=${this._enableHUD} @change=${this.#onHUDChange}>
+					<input type="checkbox" aria-label=${i18n.getMessage('popupHint')} .checked=${this._enableHUD} @change=${this.#onHUDChange}>
 					<span class="slider"></span>
 				</label>
 			</div>
@@ -422,7 +422,7 @@ class PopupPage extends LitElement {
 						<span class="chevron">${unsafeHTML(icons.chevronDown)}</span>
 						<h3>${i18n.getMessage('popupCommonGestures')}</h3>
 					</div>
-					<button class="gesture-settings-btn" @click=${(e) => { e.stopPropagation(); this.#openGestureSettings(); }}>
+					<button class="gesture-settings-btn" aria-label=${i18n.getMessage('moreSettings')} @click=${(e) => { e.stopPropagation(); this.#openGestureSettings(); }}>
 						${unsafeHTML(icons.squarePen)}
 					</button>
 				</div>

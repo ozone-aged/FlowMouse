@@ -1,3 +1,17 @@
+# FlowMouse · ozone-aged 개선판
+
+[최신 설치 ZIP 받기](https://github.com/ozone-aged/FlowMouse/releases/latest) · [Windows/macOS 설치·업데이트](docs/INSTALL.ko.md) · [변경사항](docs/RELEASE-NOTES.ko.md) · [보안 검토](docs/SECURITY-REVIEW.md)
+
+Hmily-LCG/FlowMouse **v2.5** 소스 ZIP을 독립 복사한 저장소입니다. GitHub 포크 기능을 사용하지 않았으며, 원본을 `upstream-v2.5` 태그에 그대로 보존했습니다. 원본 제스처·드래그·명령 체인은 유지하고 설정 검색, 접근성, 가져오기 검증과 저장 안정성을 보강했습니다. 현재 개선판은 **v2.5-ozone.1**, 확장 버전은 **2.5.0.1**입니다.
+
+설치할 때는 Releases의 **FlowMouse-Chromium-2.5.0.1.zip**을 받으세요. 압축을 풀고 Chrome/Edge 개발자 모드에서 로드합니다. 사용자에게 Node.js나 app-manager는 필요하지 않습니다. GitHub의 자동 Source code ZIP은 개발용이며, `npm ci && npm run build` 후 로드해야 합니다.
+
+다음 원본 버전에도 출처·차이 비교 → 보안 검토 → 개선 보존 → 테스트 → 새 설치 ZIP 배포 순서를 따릅니다. [업데이트 절차](docs/UPDATE.md), [원본 기록](UPSTREAM.json), [개발 지침](AGENTS.md)을 참고하세요. 자동 감시·자동 배포나 OS 시작 항목은 등록하지 않습니다.
+
+원본 작성자 **Hmily [LCG] & Coxxs**와 **GPL-3.0** 및 타사 라이선스를 보존합니다. 아래는 원본 프로젝트의 소개입니다.
+
+---
+
 <p align="right">
 <b>English</b> · <a href="./README.zh_CN.md">中文</a>
 </p>

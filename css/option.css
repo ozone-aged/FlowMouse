@@ -737,3 +737,17 @@ color-picker {
 	font-size: 11.5px;
 	color: var(--text-muted);
 }
+
+/* Keep existing settings usable in narrow windows and at browser zoom. */
+@media (max-width: 600px) {
+	body.options-page { padding: 12px; }
+	header { flex-wrap: wrap; gap: 12px; }
+	.header-controls { margin-inline-start: auto; }
+	.section h2 { flex-wrap: wrap; }
+	.section-body { padding-inline: 14px; }
+	.setting-row { gap: 10px; }
+	.setting-label, .setting-left { min-width: 0; }
+	.setting-title, .setting-desc { overflow-wrap: anywhere; }
+	.setting-row.actions { flex-wrap: wrap; }
+	.sync-status { flex-shrink: 0; }
+}

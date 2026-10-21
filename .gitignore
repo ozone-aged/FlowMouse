@@ -1,0 +1,6 @@
+node_modules/
+js/enhancements/
+dist/
+.local/
+test-results/
+.DS_Store

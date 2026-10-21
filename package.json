@@ -1,0 +1,20 @@
+{
+  "name": "flowmouse-local",
+  "private": true,
+  "version": "2.5.0-ozone.1",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.tools.json",
+    "test": "npm run build && node --test tests/*.test.ts",
+    "test:browser": "node tests/browser.ts",
+    "package": "npm run build && node scripts/package.ts",
+    "upstream:check": "node scripts/check-upstream.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.19.2",
+    "fflate": "0.8.3",
+    "typescript": "5.9.3"
+  }
+}

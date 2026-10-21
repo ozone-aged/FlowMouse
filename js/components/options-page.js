@@ -3,6 +3,8 @@ import { LitElement, html, css, unsafeHTML, unsafeCSS, live } from '../../js/lib
 import { commonStyles, optionStyles } from './shared-styles.js';
 import { icons, icon, iconUrl } from '../icons.js';
 import { tooltip } from '../directives/tooltip.js';
+import { MAX_IMPORT_BYTES, parseSettingsImport } from '../enhancements/settings-import.js';
+import '../enhancements/settings-finder.js';
 
 class OptionsPage extends LitElement {
 	static properties = {
@@ -207,6 +209,10 @@ class OptionsPage extends LitElement {
 				text-decoration: underline;
 			}
 
+			@media (max-width: 600px) {
+				:host { padding: 12px; }
+			}
+
 			@media (max-width: 1200px) {
 				.section-nav {
 					display: none;
@@ -255,7 +261,7 @@ class OptionsPage extends LitElement {
 		this.removeEventListener('navigate-section', this._boundNavigateSection);
 	}
 
-	#flushPendingPatch() {
+	async #flushPendingPatch() {
 		if (this._debounceTimer) {
 			clearTimeout(this._debounceTimer);
 			this._debounceTimer = null;
@@ -263,13 +269,10 @@ class OptionsPage extends LitElement {
 		if (!this._pendingPatch) return;
 		const patch = this._pendingPatch;
 		this._pendingPatch = null;
-		this._store.save(patch).then((ok) => {
-			if (!ok) {
-				this.#showStatus(window.i18n.getMessage('saveFailure'), 'error');
-				return;
-			}
-			this._settings = { ...this._store.current, ...(this._pendingPatch || {}) };
-		});
+		const ok = await this._store.save(patch);
+		this._settings = { ...this._store.current, ...(this._pendingPatch || {}) };
+		if (!ok) this.#showStatus(window.i18n.getMessage('saveFailure'), 'error');
+		return ok;
 	}
 
 	async #init() {
@@ -322,12 +325,13 @@ class OptionsPage extends LitElement {
 						</h1>
 					</div>
 					<div class="header-controls">
-						<button class="theme-toggle" @click=${this.#rotateTheme} .tooltip=${tooltip(this.#getThemeLabel(i18n))}>
+						<button class="theme-toggle" aria-label=${this.#getThemeLabel(i18n)} @click=${this.#rotateTheme} .tooltip=${tooltip(this.#getThemeLabel(i18n))}>
 							<span class="theme-toggle-icon">${unsafeHTML(this.#getThemeIcon())}</span>
 						</button>
 						<language-select id="language" .value=${this._settings.language || 'auto'} @change=${this.#onLanguageChange}></language-select>
 					</div>
 				</header>
+				<settings-finder></settings-finder>
 
 				<div class="section ${this._activeSection === 'style' ? 'active' : ''} ${(this._settings.sectionAdvanced?.style) ? 'advanced-expanded' : ''}" data-nav="style">
 					<h2><span class="section-icon">${unsafeHTML(icon('palette', { strokeWidth: 2.3 }))}</span> <span>${i18n.getMessage('styleSettings')}</span>${this.#renderAdvancedToggle('style')}</h2>
@@ -987,7 +991,7 @@ class OptionsPage extends LitElement {
 				</div>
 			</nav>
 
-			<div class="status ${this._statusVisible ? 'show' : ''}" style="background:${this._statusType === 'error' ? '#ea4335' : '#34a853'}">${this._statusMessage}</div>
+			<div role="status" aria-live="polite" class="status ${this._statusVisible ? 'show' : ''}" style="background:${this._statusType === 'error' ? '#ea4335' : '#34a853'}">${this._statusMessage}</div>
 
 			<input type="file" id="importFile" accept=".json" style="display:none" @change=${this.#importSettings}>
 		`;
@@ -1053,7 +1057,7 @@ class OptionsPage extends LitElement {
 		clearTimeout(this._sectionHoverTimer);
 		this._activeSection = id;
 		this._navClickLock = true;
-		section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		section.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
 	}
 
 	#toggleNavCollapsed() {
@@ -1235,6 +1239,7 @@ class OptionsPage extends LitElement {
 		this._settings = { ...this._settings, ...patch };
 		const ok = await this._store.save(patch);
 		if (!ok) {
+			this._settings = { ...this._store.current, ...(this._pendingPatch || {}) };
 			this.#showStatus(window.i18n.getMessage('saveFailure'), 'error');
 			return false;
 		}
@@ -1249,7 +1254,8 @@ class OptionsPage extends LitElement {
 		this._debounceTimer = setTimeout(() => this.#flushPendingPatch(), 500);
 	}
 
-	#exportSettings() {
+	async #exportSettings() {
+		if (await this.#flushPendingPatch() === false) return;
 		const data = { ...this._store.current };
 		data._version = window.i18n.version;
 		const dataStr = JSON.stringify(data, null, 2);
@@ -1268,22 +1274,28 @@ class OptionsPage extends LitElement {
 	}
 
 	async #importSettings(e) {
-		const file = e.target.files[0];
+		const input = e.target;
+		const file = input.files[0];
 		if (!file) return;
+		if (file.size > MAX_IMPORT_BYTES) {
+			this.#showStatus(window.i18n.getMessage('importFailed') + ' (max 1 MiB)', 'error');
+			input.value = '';
+			return;
+		}
 
 		if (!confirm(window.i18n.getMessage('importConfirm'))) {
-			e.target.value = '';
+			input.value = '';
+			return;
+		}
+		if (await this.#flushPendingPatch() === false) {
+			input.value = '';
 			return;
 		}
 
 		const reader = new FileReader();
 		reader.onload = async (event) => {
 			try {
-				const imported = JSON.parse(event.target.result);
-				delete imported._version;
-				if (typeof imported.enableGesture === 'undefined') {
-					throw new Error('Invalid configuration file');
-				}
+				const imported = parseSettingsImport(event.target.result, window.GestureConstants.DEFAULT_SETTINGS);
 				const DEFAULT_SETTINGS = structuredClone(window.GestureConstants.DEFAULT_SETTINGS);
 				if ((imported.customGestures || imported.gestures) && !imported.mouseGestures) {
 					const { DEFAULT_GESTURES } = window.GestureConstants;
@@ -1316,15 +1328,17 @@ class OptionsPage extends LitElement {
 				this.#showStatus(window.i18n.getMessage('importFailed'), 'error');
 			}
 		};
+		reader.onerror = () => this.#showStatus(window.i18n.getMessage('importFailed'), 'error');
 		reader.readAsText(file);
-		e.target.value = '';
+		input.value = '';
 	}
 
 	async #resetSettings() {
 		if (confirm(window.i18n.getMessage('resetConfirm'))) {
-			await this._store.reset();
+			if (await this.#flushPendingPatch() === false) return;
+			const ok = await this._store.reset();
 			this._settings = { ...this._store.current };
-			this.#showStatus(window.i18n.getMessage('resetDone'));
+			this.#showStatus(window.i18n.getMessage(ok ? 'resetDone' : 'saveFailure'), ok ? 'success' : 'error');
 		}
 	}
 

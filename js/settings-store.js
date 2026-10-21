@@ -1,3 +1,5 @@
+import { WriteQueue } from './enhancements/write-queue.js';
+
 const { DEFAULT_SETTINGS } = window.GestureConstants;
 
 function reorderMouseGestures(storedMG) {
@@ -55,6 +57,7 @@ class SettingsStore {
 	#resetting = false;
 	#loaded = false;
 	#loadPromise = null;
+	#writeQueue = new WriteQueue();
 
 	constructor() {
 		this.#loadPromise = this.#load();
@@ -96,30 +99,37 @@ class SettingsStore {
 
 	async save(patch = {}) {
 		this.#assertLoaded();
-		const now = new Date().toISOString();
-		Object.assign(this.#current, patch, { lastSyncTime: now });
-
-		try {
-			await chrome.storage.sync.set(this.#current);
-			return true;
-		} catch (e) {
-			console.error('Settings save failed:', e);
-			return false;
-		}
+		const snapshot = structuredClone(patch);
+		return this.#writeQueue.run(async () => {
+			const next = { ...this.#current, ...snapshot, lastSyncTime: new Date().toISOString() };
+			try {
+				await chrome.storage.sync.set(next);
+				this.#current = next;
+				return true;
+			} catch (e) {
+				console.error('Settings save failed:', e);
+				return false;
+			}
+		});
 	}
 
 	async reset() {
 		this.#assertLoaded();
-		this.#resetting = true;
-		try {
-			await chrome.storage.sync.clear();
-			this.#current = structuredClone(DEFAULT_SETTINGS);
-			await chrome.storage.sync.set(this.#current);
-		} catch (e) {
-			console.error('Settings reset failed:', e);
-		} finally {
-			this.#resetting = false;
-		}
+		return this.#writeQueue.run(async () => {
+			this.#resetting = true;
+			try {
+				const next = structuredClone(DEFAULT_SETTINGS);
+				// Overwrite known settings atomically; never erase a working backup first.
+				await chrome.storage.sync.set(next);
+				this.#current = next;
+				return true;
+			} catch (e) {
+				console.error('Settings reset failed:', e);
+				return false;
+			} finally {
+				this.#resetting = false;
+			}
+		});
 	}
 
 	handleExternalChange(changes) {

@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/Hmily-LCG/FlowMouse",
+  "tag": "v2.5",
+  "commit": "115d219fe48dc79f14a5a97d60b22d87d4468cd8",
+  "release": "https://github.com/Hmily-LCG/FlowMouse/releases/tag/v2.5",
+  "publishedAt": "2026-09-29T00:28:41Z",
+  "sourceArchive": "https://github.com/Hmily-LCG/FlowMouse/archive/refs/tags/v2.5.zip",
+  "sourceArchiveSha256": "693f01a195a966086cb1acf3a54f99340ac84fdd43576fca41514899c939a203",
+  "importedOn": "2026-10-21",
+  "pristineTag": "upstream-v2.5",
+  "localRevision": 1
+}
