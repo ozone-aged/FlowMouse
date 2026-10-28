@@ -1,0 +1,125 @@
+# 정리 전 README · 2026-10-28
+
+이 문서는 정리 전 소개·개선·검증 기록을 보존한 과거 자료다. 현재 사용법은 [README](../README.md), 실제 개발 상태는 최신 인계 문서를 따른다. 아래 내용은 작업 재개 지시가 아니다. 상대 링크는 [당시 원본](https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/README.md)을 가리키도록 바꿨다.
+
+---
+
+# FlowMouse · ozone-aged 개선판
+
+[최신 설치 ZIP 받기](https://github.com/ozone-aged/FlowMouse/releases/latest) · [Windows/macOS 설치·업데이트](https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/docs/INSTALL.ko.md) · [변경사항](https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/docs/RELEASE-NOTES.ko.md) · [보안 검토](https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/docs/SECURITY-REVIEW.md)
+
+Hmily-LCG/FlowMouse **v2.5** 소스 ZIP을 독립 복사한 저장소입니다. GitHub 포크 기능을 사용하지 않았으며, 원본을 `upstream-v2.5` 태그에 그대로 보존했습니다. 원본 제스처·드래그·명령 체인은 유지하고 설정 검색, 접근성, 가져오기 검증과 저장 안정성을 보강했습니다. 현재 개선판은 **v2.5-ozone.1**, 확장 버전은 **2.5.0.1**입니다.
+
+설치할 때는 Releases의 **FlowMouse-Chromium-2.5.0.1.zip**을 받으세요. 압축을 풀고 Chrome/Edge 개발자 모드에서 로드합니다. 사용자에게 Node.js나 app-manager는 필요하지 않습니다. GitHub의 자동 Source code ZIP은 개발용이며, `npm ci && npm run build` 후 로드해야 합니다.
+
+다음 원본 버전에도 출처·차이 비교 → 보안 검토 → 개선 보존 → 테스트 → 새 설치 ZIP 배포 순서를 따릅니다. [업데이트 절차](https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/docs/UPDATE.md), [원본 기록](https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/UPSTREAM.json), [개발 지침](https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/AGENTS.md)을 참고하세요. 자동 감시·자동 배포나 OS 시작 항목은 등록하지 않습니다.
+
+원본 작성자 **Hmily [LCG] & Coxxs**와 **GPL-3.0** 및 타사 라이선스를 보존합니다. 아래는 원본 프로젝트의 소개입니다.
+
+---
+
+<p align="right">
+<b>English</b> · <a href="https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/README.zh_CN.md">中文</a>
+</p>
+<div align="center">
+
+# <sub><img src="https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/assets/icon-heading.png" alt="" width="36"></sub> FlowMouse
+
+[![GitHub stars](https://img.shields.io/github/stars/Hmily-LCG/FlowMouse.svg)](https://github.com/Hmily-LCG/FlowMouse)
+[![GitHub release](https://img.shields.io/github/v/release/Hmily-LCG/FlowMouse)](https://github.com/Hmily-LCG/FlowMouse/releases)
+[![License](https://img.shields.io/github/license/Hmily-LCG/FlowMouse)](https://github.com/Hmily-LCG/FlowMouse/blob/main/LICENSE)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/users/fnldhkfidchnjiokpoemdhoejmaojkgp?label=Chrome%20Web%20Store)](https://chrome.google.com/webstore/detail/fnldhkfidchnjiokpoemdhoejmaojkgp)
+[![Mozilla Add-on](https://img.shields.io/amo/users/flowmouse?label=Firefox%20Add-on)](https://addons.mozilla.org/firefox/addon/flowmouse/)
+
+An open-source mouse gesture extension designed for ultimate smoothness. Swipe your fingertips, enter the *Flow*.
+
+Supports gesture navigation, super drag, area selection, wheel and rocker gestures, and the ability to customize all gestures.
+</div>
+
+<div align="center">
+<br>
+<img src="https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/assets/screenshot-1.png" alt="FlowMouse Settings" width="700">
+</div>
+
+## Install
+
+| Chrome | Microsoft Edge | Firefox |
+|:---:|:---:|:---:|
+| <a href="https://chrome.google.com/webstore/detail/fnldhkfidchnjiokpoemdhoejmaojkgp"><img src="https://developer.chrome.com/static/docs/webstore/branding/image/mPGKYBIR2uCP0ApchDXE.png" alt="Available on Chrome Web Store" width="206" height="58"></a> | <a href="https://microsoftedge.microsoft.com/addons/detail/obaiedbdkdciaknhnmpcpodkndadhncc"><img src="https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/assets/edge-badge.png" alt="Get it from Microsoft Edge" width="219" height="58"></a> | <a href="https://addons.mozilla.org/firefox/addon/flowmouse/"><img src="https://blog.mozilla.org/addons/files/2020/04/get-the-addon-fx-apr-2020.svg" alt="Get the Add-on for Firefox" width="166" height="58"></a> |
+
+> You can also download from [GitHub Releases](https://github.com/Hmily-LCG/FlowMouse/releases) for manual installation.
+
+## Features
+
+FlowMouse is a mouse gesture extension designed for ultimate smoothness. Seamlessly navigate your browser through natural mouse movements, helping you truly enter a focused and productive state of "flow".
+
+- <img src="https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/assets/icons/mouse-right.svg" width="16" height="16"> **Custom gestures:** 16 built-in gestures, plus unlimited custom ones you define yourself.
+- <img src="https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/assets/icons/mouse-left.svg" width="16" height="16"> **Super drag:** Drag text to search (custom engines supported), drag images to open/save/reverse-search, drag links to open/copy.
+- <img src="https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/assets/icons/mouse.svg" width="16" height="16"> **Wheel gestures:** Hold the right mouse button and scroll to quickly switch tabs.
+- <img src="https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/assets/icons/mouse-pointer-click.svg" width="16" height="16"> **Rocker gestures:** Hold one mouse button and click the other to navigate back/forward.
+- <img src="https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/assets/icons/square-dashed-mouse-pointer.svg" width="16" height="16"> **Area select:** Shift + Drag to select links on the page and open or copy them in batch.
+- <img src="https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/assets/icons/workflow.svg" width="16" height="16"> **Command chains:** Run multiple actions from a single gesture.
+- <img src="https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/assets/icons/sliders-horizontal.svg" width="16" height="16"> **Visual settings:** Configure gesture trail color, width, action hints, and more from a clean settings UI.
+- <img src="https://github.com/ozone-aged/FlowMouse/blob/213c33a03fc66ae27e00913b146eb4ece590b2bb/assets/icons/book-open.svg" width="16" height="16"> **Tutorial:** Interactive guide on first install.
+
+## Default Gestures
+
+All gestures can be customized in the options page.
+
+| Gesture | Function | Gesture | Function |
+|:---:|:---|:---:|:---|
+| `←` | Back | `→` | Forward |
+| `↑` | Scroll Up | `↓` | Scroll Down |
+| `↑←` | Switch to Left Tab | `↑→` | Switch to Right Tab |
+| `→↑` | New Tab | `→↓` | Reload Current Page |
+| `↓←` | Stop Loading | `↓→` | Close Current Tab |
+| `←↑` | Reopen Closed Tab | `←↓` | Close All Tabs |
+| `↑↓` | Scroll to Bottom | `↓↑` | Scroll to Top |
+| `←→` | Close Current Tab | `→←` | Reopen Closed Tab |
+
+## Privacy
+
+FlowMouse is an open source extension. The code is hosted on GitHub and open to review and contribution.
+
+- FlowMouse **does not collect** any browsing history, bookmarks, or usage habits.
+- FlowMouse **does not contain** any analytics or advertising code.
+- FlowMouse **does not upload** any local data to third-party servers.
+
+FlowMouse settings are stored locally via the browser's storage API. If browser sync is enabled (e.g., Chrome Sync, Firefox Sync), settings are encrypted and synced across your signed-in devices by the browser. This process is entirely controlled by your browser and follows your browser's privacy and sync settings.
+
+## Changelog
+
+See [CHANGELOG.md](https://github.com/Hmily-LCG/FlowMouse/blob/main/CHANGELOG.md).
+
+## Contributing
+
+See [CONTRIBUTING.md](https://github.com/Hmily-LCG/FlowMouse/blob/main/CONTRIBUTING.md).
+
+## The story behind FlowMouse
+
+For years, I was a loyal CrxMouse user. It genuinely improved my productivity. But one thing always bugged me: it kept requesting "advanced feature" permissions, which really meant access to my browsing history. I never agreed.
+
+Then one day, a CrxMouse update broke things on the 52pojie forum: users couldn't log in, couldn't rate posts, and pages stopped redirecting after replying. I traced the issue to a JavaScript snippet injected by the extension. Other users reported the same problems, thinking the site itself was broken, but it was actually caused by the extension and affected all Discuz!-based forums.
+
+I expected the author to fix it quickly. Two updates came and went, but the bug remained. After waiting over a month with no progress, I started looking for alternatives. There were very few similar extensions on the market, and none of them fully met my needs.
+
+So I decided to build my own. That's how FlowMouse was born.
+
+I still want to give credit to CrxMouse. It boosted my efficiency for years, and the problems it caused were the direct reason this project exists. I also want to thank Edge browser. Beyond the core gestures I use daily, FlowMouse's remaining gestures were modeled after Edge's built-in gesture set. I've always admired the smoothness and compatibility of Edge's native gestures; compared to drawing trails via JavaScript, native support is in a different league.
+
+FlowMouse aims to carry on the convenience of gesture navigation while putting privacy and compatibility first. It's a small project born from a real need. If you've run into similar frustrations, maybe it can be a good alternative for you.
+
+— Hmily [LCG]
+
+---
+
+**FlowMouse · Smoother browsing, effortless control.**
+
+---
+
+### Author Information
+- **Authors**: Hmily [LCG] & Coxxs
+- **Website**: [https://www.52pojie.cn/thread-2080303-1-1.html](https://www.52pojie.cn/thread-2080303-1-1.html)
+- **GitHub**: [https://github.com/Hmily-LCG/FlowMouse](https://github.com/Hmily-LCG/FlowMouse)
+- **Email**: Service@52pojie.cn
+- Feedback and suggestions are welcomed.

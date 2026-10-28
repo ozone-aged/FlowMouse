@@ -1,119 +1,57 @@
-# FlowMouse · ozone-aged 개선판
-
-[최신 설치 ZIP 받기](https://github.com/ozone-aged/FlowMouse/releases/latest) · [Windows/macOS 설치·업데이트](docs/INSTALL.ko.md) · [변경사항](docs/RELEASE-NOTES.ko.md) · [보안 검토](docs/SECURITY-REVIEW.md)
-
-Hmily-LCG/FlowMouse **v2.5** 소스 ZIP을 독립 복사한 저장소입니다. GitHub 포크 기능을 사용하지 않았으며, 원본을 `upstream-v2.5` 태그에 그대로 보존했습니다. 원본 제스처·드래그·명령 체인은 유지하고 설정 검색, 접근성, 가져오기 검증과 저장 안정성을 보강했습니다. 현재 개선판은 **v2.5-ozone.1**, 확장 버전은 **2.5.0.1**입니다.
-
-설치할 때는 Releases의 **FlowMouse-Chromium-2.5.0.1.zip**을 받으세요. 압축을 풀고 Chrome/Edge 개발자 모드에서 로드합니다. 사용자에게 Node.js나 app-manager는 필요하지 않습니다. GitHub의 자동 Source code ZIP은 개발용이며, `npm ci && npm run build` 후 로드해야 합니다.
-
-다음 원본 버전에도 출처·차이 비교 → 보안 검토 → 개선 보존 → 테스트 → 새 설치 ZIP 배포 순서를 따릅니다. [업데이트 절차](docs/UPDATE.md), [원본 기록](UPSTREAM.json), [개발 지침](AGENTS.md)을 참고하세요. 자동 감시·자동 배포나 OS 시작 항목은 등록하지 않습니다.
-
-원본 작성자 **Hmily [LCG] & Coxxs**와 **GPL-3.0** 및 타사 라이선스를 보존합니다. 아래는 원본 프로젝트의 소개입니다.
-
----
-
-<p align="right">
-<b>English</b> · <a href="./README.zh_CN.md">中文</a>
-</p>
 <div align="center">
 
-# <sub><img src="./assets/icon-heading.png" alt="" width="36"></sub> FlowMouse
+# FlowMouse
 
-[![GitHub stars](https://img.shields.io/github/stars/Hmily-LCG/FlowMouse.svg)](https://github.com/Hmily-LCG/FlowMouse)
-[![GitHub release](https://img.shields.io/github/v/release/Hmily-LCG/FlowMouse)](https://github.com/Hmily-LCG/FlowMouse/releases)
-[![License](https://img.shields.io/github/license/Hmily-LCG/FlowMouse)](https://github.com/Hmily-LCG/FlowMouse/blob/main/LICENSE)
-[![Chrome Web Store](https://img.shields.io/chrome-web-store/users/fnldhkfidchnjiokpoemdhoejmaojkgp?label=Chrome%20Web%20Store)](https://chrome.google.com/webstore/detail/fnldhkfidchnjiokpoemdhoejmaojkgp)
-[![Mozilla Add-on](https://img.shields.io/amo/users/flowmouse?label=Firefox%20Add-on)](https://addons.mozilla.org/firefox/addon/flowmouse/)
+**마우스 움직임으로 탐색하고, 드래그로 바로 실행하세요.**
 
-An open-source mouse gesture extension designed for ultimate smoothness. Swipe your fingertips, enter the *Flow*.
+Chrome·Edge용 마우스 제스처 확장 · ozone-aged 독립 개선판.
 
-Supports gesture navigation, super drag, area selection, wheel and rocker gestures, and the ability to customize all gestures.
+[설치 ZIP](https://github.com/ozone-aged/FlowMouse/releases/latest) · [설치 방법](docs/INSTALL.ko.md) · [주요 기능](#주요-기능) · [문서](#문서)
+
+<sub>v2.5-ozone.1 · 확장 버전 2.5.0.1 · GPL-3.0</sub>
+
 </div>
 
-<div align="center">
-<br>
-<img src="./assets/screenshot-1.png" alt="FlowMouse Settings" width="700">
-</div>
+![FlowMouse 설정 화면](assets/screenshot-1.png)
 
-## Install
+## 주요 기능
 
-| Chrome | Microsoft Edge | Firefox |
-|:---:|:---:|:---:|
-| <a href="https://chrome.google.com/webstore/detail/fnldhkfidchnjiokpoemdhoejmaojkgp"><img src="https://developer.chrome.com/static/docs/webstore/branding/image/mPGKYBIR2uCP0ApchDXE.png" alt="Available on Chrome Web Store" width="206" height="58"></a> | <a href="https://microsoftedge.microsoft.com/addons/detail/obaiedbdkdciaknhnmpcpodkndadhncc"><img src="./assets/edge-badge.png" alt="Get it from Microsoft Edge" width="219" height="58"></a> | <a href="https://addons.mozilla.org/firefox/addon/flowmouse/"><img src="https://blog.mozilla.org/addons/files/2020/04/get-the-addon-fx-apr-2020.svg" alt="Get the Add-on for Firefox" width="166" height="58"></a> |
+| 조작 | 기능 |
+| :--- | :--- |
+| 마우스 제스처 | 기본·사용자 지정 제스처로 탐색·탭 제어 |
+| 슈퍼 드래그 | 텍스트 검색, 이미지 열기·저장, 링크 열기·복사 |
+| 휠·로커 제스처 | 마우스 버튼과 휠 또는 다른 버튼을 조합해 실행 |
+| 영역 선택 | Shift+드래그로 여러 링크를 선택해 열기·복사 |
+| 명령 체인 | 하나의 제스처에 여러 동작 연결 |
+| 설정 | 동작 검색, 궤적·색상·안내 표시, 설정 가져오기 |
 
-> You can also download from [GitHub Releases](https://github.com/Hmily-LCG/FlowMouse/releases) for manual installation.
+## 설치하기
 
-## Features
+Windows·macOS의 Chrome 또는 Edge에서 사용합니다.
 
-FlowMouse is a mouse gesture extension designed for ultimate smoothness. Seamlessly navigate your browser through natural mouse movements, helping you truly enter a focused and productive state of "flow".
+1. [Releases](https://github.com/ozone-aged/FlowMouse/releases/latest)에서 **FlowMouse-Chromium-2.5.0.1.zip**을 받습니다.
+2. 압축을 풀고 `chrome://extensions` 또는 `edge://extensions`에서 개발자 모드를 켭니다.
+3. **압축해제된 확장 프로그램 로드**로 해당 폴더를 선택합니다.
+4. 확장 설정에서 제스처와 검색 엔진을 맞춥니다.
 
-- <img src="./assets/icons/mouse-right.svg" width="16" height="16"> **Custom gestures:** 16 built-in gestures, plus unlimited custom ones you define yourself.
-- <img src="./assets/icons/mouse-left.svg" width="16" height="16"> **Super drag:** Drag text to search (custom engines supported), drag images to open/save/reverse-search, drag links to open/copy.
-- <img src="./assets/icons/mouse.svg" width="16" height="16"> **Wheel gestures:** Hold the right mouse button and scroll to quickly switch tabs.
-- <img src="./assets/icons/mouse-pointer-click.svg" width="16" height="16"> **Rocker gestures:** Hold one mouse button and click the other to navigate back/forward.
-- <img src="./assets/icons/square-dashed-mouse-pointer.svg" width="16" height="16"> **Area select:** Shift + Drag to select links on the page and open or copy them in batch.
-- <img src="./assets/icons/workflow.svg" width="16" height="16"> **Command chains:** Run multiple actions from a single gesture.
-- <img src="./assets/icons/sliders-horizontal.svg" width="16" height="16"> **Visual settings:** Configure gesture trail color, width, action hints, and more from a clean settings UI.
-- <img src="./assets/icons/book-open.svg" width="16" height="16"> **Tutorial:** Interactive guide on first install.
+설치 ZIP에는 Node.js나 App Manager가 필요하지 않습니다. GitHub의 자동 **Source code ZIP**은 개발용이며 빌드 후 로드해야 합니다. 이 독립 개선판의 설치 파일과 원본 프로젝트의 스토어 배포는 별개입니다. [설치·업데이트 안내](docs/INSTALL.ko.md)
 
-## Default Gestures
+## 기본 조작
 
-All gestures can be customized in the options page.
+| 제스처 | 동작 | 제스처 | 동작 |
+| :--- | :--- | :--- | :--- |
+| `←` | 뒤로 | `→` | 앞으로 |
+| `↑` | 위로 스크롤 | `↓` | 아래로 스크롤 |
+| `→↑` | 새 탭 | `→↓` | 새로고침 |
+| `↓→` | 현재 탭 닫기 | `←↑` | 닫은 탭 다시 열기 |
 
-| Gesture | Function | Gesture | Function |
-|:---:|:---|:---:|:---|
-| `←` | Back | `→` | Forward |
-| `↑` | Scroll Up | `↓` | Scroll Down |
-| `↑←` | Switch to Left Tab | `↑→` | Switch to Right Tab |
-| `→↑` | New Tab | `→↓` | Reload Current Page |
-| `↓←` | Stop Loading | `↓→` | Close Current Tab |
-| `←↑` | Reopen Closed Tab | `←↓` | Close All Tabs |
-| `↑↓` | Scroll to Bottom | `↓↑` | Scroll to Top |
-| `←→` | Close Current Tab | `→←` | Reopen Closed Tab |
+모든 제스처는 설정에서 바꿀 수 있습니다. 설정은 브라우저 저장소에 보관하며 브라우저 동기화 여부는 사용자의 브라우저 설정을 따릅니다.
 
-## Privacy
+## 문서
 
-FlowMouse is an open source extension. The code is hosted on GitHub and open to review and contribution.
+- [설치·업데이트](docs/INSTALL.ko.md)
+- [변경 기록](docs/RELEASE-NOTES.ko.md) · [보안 검토](docs/SECURITY-REVIEW.md)
+- [개발·원본 업데이트 절차](docs/UPDATE.md) · [원본 기록](UPSTREAM.json)
+- [라이선스](LICENSE) · [타사 라이선스](THIRD_PARTY_LICENSES.md)
 
-- FlowMouse **does not collect** any browsing history, bookmarks, or usage habits.
-- FlowMouse **does not contain** any analytics or advertising code.
-- FlowMouse **does not upload** any local data to third-party servers.
-
-FlowMouse settings are stored locally via the browser's storage API. If browser sync is enabled (e.g., Chrome Sync, Firefox Sync), settings are encrypted and synced across your signed-in devices by the browser. This process is entirely controlled by your browser and follows your browser's privacy and sync settings.
-
-## Changelog
-
-See [CHANGELOG.md](https://github.com/Hmily-LCG/FlowMouse/blob/main/CHANGELOG.md).
-
-## Contributing
-
-See [CONTRIBUTING.md](https://github.com/Hmily-LCG/FlowMouse/blob/main/CONTRIBUTING.md).
-
-## The story behind FlowMouse
-
-For years, I was a loyal CrxMouse user. It genuinely improved my productivity. But one thing always bugged me: it kept requesting "advanced feature" permissions, which really meant access to my browsing history. I never agreed.
-
-Then one day, a CrxMouse update broke things on the 52pojie forum: users couldn't log in, couldn't rate posts, and pages stopped redirecting after replying. I traced the issue to a JavaScript snippet injected by the extension. Other users reported the same problems, thinking the site itself was broken, but it was actually caused by the extension and affected all Discuz!-based forums.
-
-I expected the author to fix it quickly. Two updates came and went, but the bug remained. After waiting over a month with no progress, I started looking for alternatives. There were very few similar extensions on the market, and none of them fully met my needs.
-
-So I decided to build my own. That's how FlowMouse was born.
-
-I still want to give credit to CrxMouse. It boosted my efficiency for years, and the problems it caused were the direct reason this project exists. I also want to thank Edge browser. Beyond the core gestures I use daily, FlowMouse's remaining gestures were modeled after Edge's built-in gesture set. I've always admired the smoothness and compatibility of Edge's native gestures; compared to drawing trails via JavaScript, native support is in a different league.
-
-FlowMouse aims to carry on the convenience of gesture navigation while putting privacy and compatibility first. It's a small project born from a real need. If you've run into similar frustrations, maybe it can be a good alternative for you.
-
-— Hmily [LCG]
-
----
-
-**FlowMouse · Smoother browsing, effortless control.**
-
----
-
-### Author Information
-- **Authors**: Hmily [LCG] & Coxxs
-- **Website**: [https://www.52pojie.cn/thread-2080303-1-1.html](https://www.52pojie.cn/thread-2080303-1-1.html)
-- **GitHub**: [https://github.com/Hmily-LCG/FlowMouse](https://github.com/Hmily-LCG/FlowMouse)
-- **Email**: Service@52pojie.cn
-- Feedback and suggestions are welcomed.
+원본은 [Hmily-LCG/FlowMouse](https://github.com/Hmily-LCG/FlowMouse)의 v2.5이며 작성자는 **Hmily [LCG] & Coxxs**입니다. GitHub fork 기능을 쓰지 않은 독립 소스 복사본으로, 원본은 `upstream-v2.5` 태그에 보존합니다. 원본 기능·출처·GPL-3.0 및 타사 라이선스를 유지합니다.
